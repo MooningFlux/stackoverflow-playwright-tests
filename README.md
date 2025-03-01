@@ -1,2 +1,2 @@
-# skype-playwright-tests
-Tests for Skype website using Playwright/Python
+# stackoverflow-playwright-tests
+Tests for Stackoverflow website using Playwright/Python
