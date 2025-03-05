@@ -5,7 +5,6 @@ from pages.base_page import BasePage
 # once created and matched to the corresponding class.
 # self represents that object which will inherit those properties.
 class LoginPage(BasePage):
-    #def __init__(self, page: Page): #mb use locators file with all locators
     def __init__(self, page: Page): #mb use locators file with all locators
         #BasePage.__init__(self, page)
         super().__init__(page)
@@ -32,3 +31,7 @@ class LoginPage(BasePage):
     def get_error_message(self):
         """Возвращает текст сообщения об ошибке"""
         return self.error_message.inner_text()
+    
+    def title(self):
+        """Возващает заголовок страницы, same as page.title()"""
+        return self.page.title() #delegated .title() call
