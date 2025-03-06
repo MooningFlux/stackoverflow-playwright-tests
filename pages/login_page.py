@@ -15,7 +15,7 @@ class LoginPage(BasePage):
         self.error_message = page.get_by_role('paragraph') #The email or password is incorrect.
         #self.error_message = page.locator('#errorAlert')
 
-    def navigate(self):
+    def navigate_login(self):
         """Открывает страницу логина.""" 
         self.page.goto('https://stackoverflow.com/users/login')
 

@@ -1,4 +1,5 @@
 import pytest
+from decouple import config
 from pages.login_page import LoginPage
 from pages.questions_page import QuestionsPage
 
