@@ -11,3 +11,5 @@ def login_page(page):
 @pytest.fixture
 def questions_page(page):
     return QuestionsPage(page)
+
+#add allure-results files deletion
