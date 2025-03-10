@@ -1,5 +1,3 @@
-#TODO: locators for dashboard, inherit other page objects from this class
-
 from playwright.sync_api import Page
 #The self parameter is a reference to the current instance of the class, and is used to access variables that belong to the class.
 class BasePage:
