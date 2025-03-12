@@ -4,9 +4,8 @@ import allure
 from decouple import config
 from playwright.sync_api import expect
 
-EMAIL = config('EMAIL') #temporary till CI secrets
+EMAIL = config('EMAIL')
 PASSWORD = config('PASSWORD')
-#NOTPASSWORD = config('NOTPASSWORD')
 
 @allure.feature('Вход в систему (Login)')
 @allure.story('Авторизация с неверными данными')
@@ -41,7 +40,7 @@ def test_click_tags_button(login_page):
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.title('Авторизация с корректными учетными данными')
 @pytest.mark.parametrize('email, password', [
-    (EMAIL, PASSWORD), #NOTPASSWORD
+    (EMAIL, PASSWORD), #Secret used in remote repo
     ('admin', 'admin') #future correct creds (create test account)
 ])
 def test_login_success(login_page, email, password):
@@ -53,6 +52,4 @@ def test_login_success(login_page, email, password):
     with allure.step('Отображается профиль пользователя в дешборде'):
         expect(login_page.user_profile_button).to_be_visible()
 
-#TODO: create test account, delete .env file from remote repo (use CI secrets instead), \
-#write and automate test cases (add API tests)
-#DOING: CI secret implementation
+#TODO: create test account, write and automate test cases (add API tests), use xdist
