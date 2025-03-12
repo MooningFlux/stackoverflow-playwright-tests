@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"Тест входа с неправильными учетными данными...","2759","Авторизация с некорректными учетными данными","","Wed Mar 12 16:00:50 GMT 2025","passed","Wed Mar 12 16:00:52 GMT 2025","","test_login","",""
+"Переход со страницы /questions на страницу /tags нажатием соответствующей кнопки","1623","Переход со страницы /questions на страницу /tags","","Wed Mar 12 16:00:53 GMT 2025","passed","Wed Mar 12 16:00:54 GMT 2025","","test_login","",""
+"","7527","Авторизация с корректными учетными данными","","Wed Mar 12 16:00:54 GMT 2025","failed","Wed Mar 12 16:01:02 GMT 2025","","test_login","",""
+"","7528","Авторизация с корректными учетными данными","","Wed Mar 12 16:01:02 GMT 2025","failed","Wed Mar 12 16:01:09 GMT 2025","","test_login","",""
