@@ -12,8 +12,9 @@ class BasePage:
         self.companies_button = page.get_by_role("link", name="Companies", exact=True)
         self.discussions_button = page.get_by_role("link", name="Discussions", exact=True)
         self.collectives_button = page.get_by_role("link", name="Explore all Collectives", exact=True)
-
         self.user_profile_button = page.locator('#user-profile-button')
+        #searchbar
+
 
     def go_to_home_page(self):
         """Переход на страницу Home нажатием кнопки https://stackoverflow.com/""" 
@@ -50,3 +51,19 @@ class BasePage:
     def navigate_base(self):
         """Переход на страницу stackoverflow/questions"""
         self.page.goto('https://stackoverflow.com/questions', wait_until='commit') #tweak option, use best practice
+    
+    def navigate_login(self): #relocated from login_page
+        """Открывает страницу логина.""" 
+        self.page.goto('https://stackoverflow.com/users/login')
+    
+    def navigate_tags(self): #relocated from login_page
+        """Открывает страницу тегов.""" 
+        self.page.goto('https://stackoverflow.com/tags')
+    
+    def navigate(self, url: str):
+        """Переход на указанный url"""
+        self.page.goto(url)
+    
+    def title(self):
+        """Возващает заголовок страницы, same as page.title()"""
+        return self.page.title() #delegated .title() call

@@ -15,12 +15,12 @@ class LoginPage(BasePage):
         self.error_message = page.get_by_role('paragraph') #The email or password is incorrect.
         #self.error_message = page.locator('#errorAlert')
 
-    def navigate_login(self):
-        """Открывает страницу логина.""" 
-        self.page.goto('https://stackoverflow.com/users/login')
+    # def navigate_login(self): #relocated to base_page
+    #     """Открывает страницу логина.""" 
+    #     self.page.goto('https://stackoverflow.com/users/login')
 
-    def navigate_tags(self):##delete, make it inherit from base_page. Must be called navigate, and used in tags_page.py
-        self.page.goto('https://stackoverflow.com/tags')
+    # def navigate_tags(self): #relocated to base_page
+    #     self.page.goto('https://stackoverflow.com/tags')
 
     def login(self, email: str, password: str):
         """Выполняет вход с заданными почтой и паролем"""
@@ -32,6 +32,6 @@ class LoginPage(BasePage):
         """Возвращает текст сообщения об ошибке"""
         return self.error_message.inner_text()
     
-    def title(self):
-        """Возващает заголовок страницы, same as page.title()"""
-        return self.page.title() #delegated .title() call
+    # def title(self): #relocated to base_page
+    #     """Возващает заголовок страницы, same as page.title()"""
+    #     return self.page.title() #delegated .title() call
