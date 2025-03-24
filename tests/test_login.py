@@ -111,7 +111,7 @@ def test_logout(login_page):
         login_page.navigate_login()
     
 
-#TODO: write and automate test cases: add main functions tests (add log out), add API tests; use xdist, add different environments?
+#TODO: write and automate test cases: add main functions tests, add API tests; use xdist, add different environments?
 #https://api.stackexchange.com/docs - API
 #DONE:
 
