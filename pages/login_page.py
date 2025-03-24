@@ -13,25 +13,17 @@ class LoginPage(BasePage):
         self.password_input = page.locator('#password')
         self.login_button = page.locator('#submit-button')
         self.error_message = page.get_by_role('paragraph') #The email or password is incorrect.
+        #self.site_switcher = page.get_by_role("menuitem", name="Site switcher") #page.locator('[aria-label="Site switcher"]')
         #self.error_message = page.locator('#errorAlert')
 
-    # def navigate_login(self): #relocated to base_page
-    #     """Открывает страницу логина.""" 
-    #     self.page.goto('https://stackoverflow.com/users/login')
-
-    # def navigate_tags(self): #relocated to base_page
-    #     self.page.goto('https://stackoverflow.com/tags')
-
     def login(self, email: str, password: str):
-        """Выполняет вход с заданными почтой и паролем"""
+        """Выполнить вход в профиль с заданными почтой и паролем"""
         self.email_input.fill(email)
         self.password_input.fill(password)
         self.login_button.click()
     
     def get_error_message(self):
-        """Возвращает текст сообщения об ошибке"""
+        """Вернуть текст сообщения об ошибке"""
         return self.error_message.inner_text()
     
-    # def title(self): #relocated to base_page
-    #     """Возващает заголовок страницы, same as page.title()"""
-    #     return self.page.title() #delegated .title() call
+    

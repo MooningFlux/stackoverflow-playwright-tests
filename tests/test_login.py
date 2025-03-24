@@ -83,6 +83,7 @@ def test_click_questions_button(login_page):
         login_page.go_to_questions_page()
     with allure.step('Отображается название страницы: Newest Questions - Stack Overflow'):
         assert login_page.title() == 'Newest Questions - Stack Overflow'
+##########################################################
 
 @allure.feature('Вход в систему (Login)')
 @allure.story('Успешная авторизация')
@@ -102,12 +103,17 @@ def test_login_success(login_page, email, password):
         expect(login_page.user_profile_button).to_be_visible()
 
 #################### Tests for logged in user -> tests_questions
-
+def test_logout(login_page):
+    #with allure.step(''):
+    with allure.step(''):
+        login_page.navigate_login()
+    with allure.step('Открыть страницу авторизации'):
+        login_page.navigate_login()
+    
 
 #TODO: write and automate test cases: add main functions tests (add log out), add API tests; use xdist, add different environments?
-#DONE: added custom mark, added xfail mark, use mark decorators to specify browsers, creating of a question, code refactoring
-
-#DOING: decompose creating of a question
+#https://api.stackexchange.com/docs - API
+#DONE:
 
 #EMAIL2, PASSWORD2 - test account
 #KISS, Arrange – Act – Assert

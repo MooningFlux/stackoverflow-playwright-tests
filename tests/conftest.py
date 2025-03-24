@@ -1,6 +1,7 @@
 import pytest
 from decouple import config
 from playwright.sync_api import expect
+from pages.base_page import BasePage
 from pages.login_page import LoginPage
 from pages.questions_page import QuestionsPage
 
@@ -39,6 +40,9 @@ def browser_context_args(browser_name):
             "color_scheme": "dark",
         }
 
+@pytest.fixture
+def base_page(page):
+    return BasePage(page)
 
 @pytest.fixture
 def login_page(page):

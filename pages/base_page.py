@@ -13,6 +13,10 @@ class BasePage:
         self.discussions_button = page.get_by_role("link", name="Discussions", exact=True)
         self.collectives_button = page.get_by_role("link", name="Explore all Collectives", exact=True)
         self.user_profile_button = page.locator('#user-profile-button')
+        self.site_switcher = page.get_by_role("menuitem", name="Site switcher", exact=True) #page.locator('[aria-label="Site switcher"]')
+        self.logout_link = page.get_by_role("link", name="log out")
+        self.logout_button = page.get_by_role("button", name="Log out")
+        self.login_dashboard_button = page.get_by_role("menuitem", name="Log in")
         #searchbar
 
 
@@ -62,8 +66,14 @@ class BasePage:
     
     def navigate(self, url: str):
         """Переход на указанный url"""
-        self.page.goto(url)
+        self.page.goto(url, wait_until= 'domcontentloaded') #tweak option wait_until
     
     def title(self):
         """Возващает заголовок страницы, same as page.title()"""
         return self.page.title() #delegated .title() call
+    
+    def logout(self):
+        """Выполнить выход из профиля"""
+        self.site_switcher.click()
+        self.logout_link.click()
+        self.logout_button.click()
