@@ -103,12 +103,6 @@ def test_login_success(login_page, email, password):
         expect(login_page.user_profile_button).to_be_visible()
 
 #################### Tests for logged in user -> tests_questions
-def test_logout(login_page):
-    #with allure.step(''):
-    with allure.step(''):
-        login_page.navigate_login()
-    with allure.step('Открыть страницу авторизации'):
-        login_page.navigate_login()
     
 
 #TODO: write and automate test cases: add main functions tests, add API tests; use xdist, add different environments?

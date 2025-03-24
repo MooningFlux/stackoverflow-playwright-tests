@@ -31,7 +31,7 @@ jobs:
         env:
           EMAIL: ${{ secrets.EMAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
-          EMAIL2:${{ secrets.EMAIL2 }}
+          EMAIL2: ${{ secrets.EMAIL2 }}
           PASSWORD2: ${{ secrets.PASSWORD2 }}
         run: pytest -c tests/pytest.ini -s -v
       - name: Upload allure report
