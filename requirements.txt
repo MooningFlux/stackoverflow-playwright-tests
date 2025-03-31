@@ -3,3 +3,4 @@ pytest-playwright
 pytest
 allure-pytest
 python-decouple
+pytest-xdist

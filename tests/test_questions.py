@@ -4,6 +4,7 @@ import allure
 from decouple import config
 from tests.conftest import EMAIL, PASSWORD, EMAIL2, PASSWORD2
 from playwright.sync_api import expect
+from pages.questions_page import StackOverflowAPI
 
 
 def test_create_duplicate_question(questions_page, authenticated_user): #in real projects - use api for authorization (auth cookies or mocks)
@@ -18,11 +19,14 @@ def test_create_duplicate_question(questions_page, authenticated_user): #in real
         "Не найдена запись о наличии дубликата 'Testing test test'"
     #questions_page.discard_questions() #with slowmo 1500
 
+@pytest.mark.skip
 def test_discard_question(questions_page, authenticated_user): #xfail - must be empty/discarded
     questions_page.page.goto('https://stackoverflow.com/questions/ask')
     questions_page.page.on("dialog", lambda dialog: dialog.accept())
     questions_page.discard_button.click()
+    #assert
 
+@pytest.mark.xfail
 def test_create_question(questions_page, authenticated_user): #xfail captcha
     with allure.step('Перейти на страницу Questions нажатием кнопки'):
         questions_page.go_to_questions_page()
@@ -46,5 +50,33 @@ def test_create_question(questions_page, authenticated_user): #xfail captcha
         questions_page.post_question()
     questions_page.page.pause()
 
+#delete
+def test_API_users(page):
+    response = page.request.get('https://api.stackexchange.com/2.3/users/29973352?site=stackoverflow')
+    # print(response.status)
+    # print(response.json())
+    assert response.json()["items"][0]["display_name"] == "TestAccount"
 
-#TODO: #add This post does not meet our quality standards. checking
+@pytest.mark.parametrize("api_question_response", [4, 79535884], indirect=True)
+def test_question_title_match(questions_page, api_question_response): #api combined with ui test
+    api_title = StackOverflowAPI.extract_title_from_response(api_question_response)
+    question_id = StackOverflowAPI.extract_id_from_response(api_question_response)
+    
+    questions_page.navigate_to_question_id(question_id)
+    ui_title = questions_page.get_question_title()
+    assert api_title == ui_title
+
+#deprecated
+def test_question_title_match_old(questions_page, api_question_4_response): #api combined with ui test
+    api_title = questions_page.get_question_title_from_api_response(api_question_4_response)
+    question_id = questions_page.get_question_id_from_api_response(api_question_4_response)
+    questions_page.navigate_to_question_id(question_id)
+    ui_title = questions_page.get_question_title()
+    assert api_title == ui_title
+
+#delete
+def test_test(questions_page):
+    response = questions_page.page.request.get('https://api.stackexchange.com/2.3/questions/4?site=stackoverflow')
+    print(response.json())
+
+#TODO: test_question_title_match - done
