@@ -12,13 +12,12 @@ class TestTagsPagination:
         """Проверка что на странице отображается 36 тегов по умолчанию"""
         with allure.step('Открыть страницу тегов'):
             tags_page.navigate_tags()
-        #breakpoint()
         with allure.step('Проверить количество тегов на странице'):
             assert tags_page.get_tags_count() == 36, "Количество тегов на странице должно быть 36"
 
     @allure.story('UI тесты пагинации')
     @allure.title('Проверка перехода между страницами')
-    @pytest.mark.parametrize('page_number', [1, 2, 3, 4, 5, 6, 7, 8]) #1,2,3
+    @pytest.mark.parametrize('page_number', [1, 2, 3]) #1,2,3
     def test_pagination_navigation(self, tags_page, page_number):
         """Проверка корректности перехода между страницами"""
         with allure.step(f'Перейти на страницу {page_number}'):

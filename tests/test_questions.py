@@ -1,12 +1,9 @@
 import pytest
 import allure
-#from pages.login_page import LoginPage
-from decouple import config
-from tests.conftest import EMAIL, PASSWORD, EMAIL2, PASSWORD2
 from playwright.sync_api import expect
 from pages.questions_page import StackOverflowAPI
 
-
+@pytest.mark.xfail #captcha
 def test_create_duplicate_question(questions_page, authenticated_user): #in real projects - use api for authorization (auth cookies or mocks)
     with allure.step('Перейти на страницу Questions нажатием кнопки'): #by default after authorization user is redirected to /questions page
         questions_page.go_to_questions_page()
@@ -65,18 +62,3 @@ def test_question_title_match(questions_page, api_question_response): #api combi
     questions_page.navigate_to_question_id(question_id)
     ui_title = questions_page.get_question_title()
     assert api_title == ui_title
-
-#deprecated
-def test_question_title_match_old(questions_page, api_question_4_response): #api combined with ui test
-    api_title = questions_page.get_question_title_from_api_response(api_question_4_response)
-    question_id = questions_page.get_question_id_from_api_response(api_question_4_response)
-    questions_page.navigate_to_question_id(question_id)
-    ui_title = questions_page.get_question_title()
-    assert api_title == ui_title
-
-#delete
-def test_test(questions_page):
-    response = questions_page.page.request.get('https://api.stackexchange.com/2.3/questions/4?site=stackoverflow')
-    print(response.json())
-
-#TODO: test_question_title_match - done

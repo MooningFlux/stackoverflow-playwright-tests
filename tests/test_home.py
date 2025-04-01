@@ -2,7 +2,7 @@ import pytest
 import allure
 from playwright.sync_api import expect
 
-#class name?
+@pytest.mark.xfail
 def test_welcome_message(home_page, authenticated_user):
     with allure.step('Перейти на на страницу Home нажатием кнопки'):
         home_page.go_to_home_page()

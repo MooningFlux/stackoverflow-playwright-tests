@@ -129,14 +129,7 @@ class QuestionsPage(BasePage):
         """Возвращает title вопроса"""
         return self.question_header.inner_text() #page.locator("#question-header .question-hyperlink").inner_text()
     
-    def get_question_title_from_api_response(self, api_response: APIResponse) -> str:
-        """Возвращает title из ответа запроса"""
-        return api_response.json()["items"][0]["title"]
-    
-    def get_question_id_from_api_response(self, api_response: APIResponse) -> str:
-        """Возвращает id из ответа запроса"""
-        return api_response.json()["items"][0]["question_id"]
-    
+   
 class StackOverflowAPI: #relocate
     
     @staticmethod

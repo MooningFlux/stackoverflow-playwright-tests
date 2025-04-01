@@ -5,7 +5,7 @@ class HomePage(BasePage):
     def __init__(self, page: Page) -> None:
         super().__init__(page)
         self.welcome_message = page.locator("#hide-this-if-you-want h1.fs-headline1")
-        self.user_profile_name = page.locator("#user-profile-button span").nth(0) #rebase to base_page?
+        self.user_profile_name = page.locator("#user-profile-button span").nth(0) #relocate to base_page
 
     def get_welcome_message(self) -> str:
         """Возвращает приветственное сообщение"""

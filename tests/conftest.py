@@ -93,16 +93,3 @@ def api_question_response(page: Page, request: FixtureRequest) -> APIResponse: #
     )
     assert response.status == 200 #.ok
     return response
-
-#delete
-@pytest.fixture
-def api_question_4_response(questions_page: QuestionsPage) -> APIResponse:
-    #Запрашиваем данные вопроса через API с указанным id
-        response = questions_page.page.request.get(
-            "https://api.stackexchange.com/2.3/questions/4",
-            params={"site": "stackoverflow"}
-        )
-        assert response.status == 200
-        return response
-
-#add allure-results files deletion

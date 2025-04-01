@@ -1,9 +1,7 @@
 from playwright.sync_api import Page
 from pages.base_page import BasePage
 
-# __init__ is basically a function which will "initialize"/"activate" the properties of the class for a specific object, (constructor)
-# once created and matched to the corresponding class.
-# self represents that object which will inherit those properties.
+
 class LoginPage(BasePage):
     def __init__(self, page: Page) -> None: #mb use locators file with all locators
         #BasePage.__init__(self, page)

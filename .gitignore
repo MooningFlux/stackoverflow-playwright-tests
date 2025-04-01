@@ -7,3 +7,6 @@ __pycache__/
 
 #allure results
 tests/allure-results/
+
+#test-results
+test-results

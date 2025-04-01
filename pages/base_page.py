@@ -1,16 +1,17 @@
 from playwright.sync_api import Page
-#The self parameter is a reference to the current instance of the class, and is used to access variables that belong to the class.
+
+
 class BasePage:
     def __init__(self, page: Page) -> None: #mb use locators file with all locators
         self.page = page
         #self.home_button = page.locator('.-link--channel-name.pl6', has_text='Home') #li.ps-relative:nth-child(1)
-        self.home_button = page.get_by_role("link", name="Home", exact=True) #kinda for logged user
+        self.home_button = page.get_by_role("link", name="Home", exact=True) #~for logged user
         self.questions_button = page.get_by_label("Primary").get_by_role("link", name="Questions", exact=True)
         self.tags_button = page.get_by_role("link", name="Tags", exact=True)
         self.saves_button = page.get_by_role("link", name="Saves", exact=True) #for logged user
         self.users_button = page.get_by_role("link", name="Users", exact=True)
         self.companies_button = page.get_by_role("link", name="Companies", exact=True)
-        self.discussions_button = page.get_by_role("link", name="Discussions", exact=True)
+        self.discussions_button = page.get_by_role("link", name="Discussions")
         self.collectives_button = page.get_by_role("link", name="Explore all Collectives", exact=True)
         self.user_profile_button = page.locator('#user-profile-button')
         self.site_switcher = page.get_by_role("menuitem", name="Site switcher", exact=True) #page.locator('[aria-label="Site switcher"]')
