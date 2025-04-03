@@ -14,7 +14,6 @@ WORKDIR /app
 COPY requirements.txt .
 COPY tests/ ./tests/
 COPY pages/ ./pages/
-COPY .env .
 
 #python project dependencies
 RUN pip install --no-cache-dir -r requirements.txt
