@@ -32,9 +32,7 @@ jobs:
       #     PASSWORD2: ${{ secrets.PASSWORD2 }}
       #   run: pytest -c tests/pytest.ini -s -v
       - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose-plugin
+        uses: docker/setup-compose-action@v1
       - name: Run tests in Docker
         env:
           EMAIL: ${{ secrets.EMAIL }}
