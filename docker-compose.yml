@@ -1,0 +1,10 @@
+services:
+  tests:
+    build: . #use Dockerfile from current dir to build image
+    environment:
+      - EMAIL=${EMAIL}
+      - PASSWORD=${PASSWORD}
+      - EMAIL2=${EMAIL2}
+      - PASSWORD2=${PASSWORD2}
+    volumes:
+      - ./tests/allure-results:/app/tests/allure-results #host:container (from container to host)
