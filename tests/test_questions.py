@@ -45,7 +45,8 @@ def test_create_question(questions_page, authenticated_user): #xfail captcha
         questions_page.review_question()
     with allure.step('Опубликовать вопрос'):
         questions_page.post_question()
-    questions_page.page.pause()
+    #questions_page.page.pause()
+    #assert
 
 #delete
 def test_API_users(page):

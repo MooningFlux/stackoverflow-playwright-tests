@@ -4,3 +4,4 @@ pytest
 allure-pytest
 python-decouple
 pytest-xdist
+pytest-mock

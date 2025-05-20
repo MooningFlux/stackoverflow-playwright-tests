@@ -34,4 +34,11 @@ class TestLogin:
             login_page.login(email, password)
         #expect(login_page.page).to_have_url("https://stackoverflow.com/")
         with allure.step('Отображается профиль пользователя в дешборде'):
-            expect(login_page.user_profile_button).to_be_visible()
+            #login_page.page.pause()
+            login_page.is_user_profile_visible()
+
+#TODO: check tests to have expect/assert in the end and to have logic in page files
+#i.e. expect(login_page.user_profile_button).to_be_visible() - > assert login_page.user_profile_is_visible()
+#watch ref https://github.com/AutomationPanda/playwright-python-tutorial/blob/main/tests/test_search.py
+#and in selenium project
+#check names of the tests

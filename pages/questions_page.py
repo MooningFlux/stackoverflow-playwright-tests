@@ -17,7 +17,7 @@ class QuestionsPage(BasePage):
         self.discard_button = page.get_by_role("button", name="Discard draft") #page.locator('button.js-discard-question')
         self.discard_cancel_button = page.locator('#discard-cancel-btn') #page.get_by_role("button", name="Continue editing")
         self.discard_confirmation_button = page.locator('#discard-confirmation-btn') #page.get_by_role("button", name="Discard question")
-        self.post_question_button = page.locator('#submit-button') #page.get_by_role("button", name="Post your question") 
+        self.post_question_button = page.locator('#submit-button') #.or_ page.get_by_role("button", name="Post your question") 
         #self.evaluate_question_button = page.get_by_role("button", name="Submit for evaluation")
         self.cookies_button = page.get_by_role("button", name="Accept all cookies")
         self.not_duplicate_checkbox = page.locator('#verify-not-duplicate')

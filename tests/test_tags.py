@@ -3,6 +3,7 @@ import allure
 import requests
 from playwright.sync_api import expect
 
+base_url = "https://api.stackexchange.com/2.3/tags"
 
 @allure.feature('Пагинация тегов')
 class TestTagsPagination:
@@ -35,7 +36,7 @@ class TestTagsPagination:
         """Проверка корректности количества тегов при разных значениях pagesize"""
         with allure.step(f'Отправить API запрос с pagesize={page_size}'):
             response = requests.get(
-                "https://api.stackexchange.com/2.3/tags",
+                base_url,
                 params={
                     "page": 1,
                     "pagesize": page_size,
@@ -63,7 +64,7 @@ class TestTagsPagination:
             
         with allure.step('Получить данные через API'):
             response = requests.get(
-                "https://api.stackexchange.com/2.3/tags",
+                base_url,
                 params={
                     "page": 1,
                     "pagesize": 36,
@@ -90,7 +91,7 @@ class TestTagsPagination:
     @pytest.mark.api
     def test_pagination_empty_page(self, tags_page): #page.request used
         r = tags_page.page.request.get(
-            "https://api.stackexchange.com/2.3/tags",
+            base_url,
             params={
                 "page": 999999,
                 "pagesize": 36,
@@ -115,5 +116,40 @@ class TestTagsPagination:
             assert tags_page.get_current_page_number() == 1
         with allure.step('Проверить отображение кнопки Prev'):
             assert tags_page.is_prev_button_present() == False, "Кнопка Prev не должна отображаться на 1 странице"
-    
-    #last page
+
+
+@allure.title('MOCK: Проверка размера страницы через API')
+@pytest.mark.api
+def test_api_pagination_pagesize_mock(mocker):
+    mock_response = mocker.Mock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {'items': [1, 1, 1]}  #3 tags
+
+    # Мокаем requests.get, чтобы он возвращал наш мок-ответ
+    mock_get = mocker.patch('requests.get', return_value=mock_response)
+
+    # Теперь вызов requests.get вернёт mock_response
+    with allure.step(f'Отправить API запрос с pagesize = 3'):
+        response = requests.get(
+            base_url,
+            params={
+                        "page": 1,
+                        "pagesize": 3,
+                        "order": "desc",
+                        "sort": "popular",
+                        "site": "stackoverflow",
+                        "key": "rl_bDjukFK2wQnvjqrqBVhCHDEWp"
+                    })
+    with allure.step('Проверить статус ответа'):
+        assert response.status_code == 200
+    with allure.step('Проверить количество тегов на странице'):
+        assert len(response.json()['items']) == 3
+    mock_get.assert_called_once_with(base_url,
+            params={
+                        "page": 1,
+                        "pagesize": 3,
+                        "order": "desc",
+                        "sort": "popular",
+                        "site": "stackoverflow",
+                        "key": "rl_bDjukFK2wQnvjqrqBVhCHDEWp"
+                    })

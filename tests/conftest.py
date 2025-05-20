@@ -86,7 +86,7 @@ def authenticated_user(login_page: LoginPage) -> None:
 @pytest.fixture #with parameter in request obj
 def api_question_response(page: Page, request: FixtureRequest) -> APIResponse: #no need to explicitly annotate
     #Запрашиваем response вопроса через API с указанным id
-    question_id = request.param  # Получаем ID из параметризации
+    question_id = request.param  # Получаем ID из параметризации (test_questions.test_question_title_match())
     response = page.request.get(
         f"https://api.stackexchange.com/2.3/questions/{question_id}",
         params={"site": "stackoverflow"}
