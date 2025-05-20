@@ -55,6 +55,7 @@ def test_API_users(page):
     # print(response.json())
     assert response.json()["items"][0]["display_name"] == "TestAccount"
 
+@pytest.mark.xfail(reason="Expected xfail: cloudflare challenge")
 @pytest.mark.parametrize("api_question_response", [4, 79535884], indirect=True)
 def test_question_title_match(questions_page, api_question_response): #api combined with ui test
     api_title = StackOverflowAPI.extract_title_from_response(api_question_response)
