@@ -10,7 +10,7 @@ class BasePage:
         self.tags_button = page.get_by_role("link", name="Tags", exact=True)
         self.saves_button = page.get_by_role("link", name="Saves", exact=True) #for logged user
         self.users_button = page.get_by_role("link", name="Users", exact=True)
-        self.companies_button = page.get_by_role("link", name="Companies", exact=True)
+        self.companies_button = page.locator('#nav-companies') #page.get_by_role("link", name="Companies", exact=True)
         self.discussions_button = page.get_by_role("link", name="Discussions Labs", exact=True) #page.locator('#nav-labs-discussions')
         self.collectives_button = page.get_by_role("link", name="Explore all Collectives", exact=True)
         self.user_profile_button = page.locator('#user-profile-button')
