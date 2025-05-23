@@ -42,6 +42,8 @@ def test_click_users_button(base_page):
 def test_click_companies_button(base_page):
     with allure.step('Открыть страницу stackoverflow/questions'):
         base_page.navigate_base()
+    with allure.step('Принять куки'):
+        base_page.accept_cookies()
     with allure.step('Перейти на на страницу Companies нажатием кнопки'):
         base_page.go_to_companies_page()
     #assert base_page.page.title() == 'Tags - Stack Overflow'

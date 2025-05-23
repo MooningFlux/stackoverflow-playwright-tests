@@ -20,6 +20,7 @@ class BasePage:
         self.login_dashboard_button = page.get_by_role("menuitem", name="Log in")
         self.search_input = page.locator('#search [name="q"]')
         self.search_caption_result = page.get_by_text("Results for").nth(0) #/search result
+        self.accept_cookies_button = page.locator('#onetrust-button-group #onetrust-accept-btn-handler')
 
 
     def go_to_home_page(self) -> None:
@@ -89,3 +90,7 @@ class BasePage:
     def get_search_results_caption(self) -> str:
         """Возвращает значение надписи поискового запроса"""
         return self.search_caption_result.inner_text()
+    
+    def accept_cookies(self):
+        """Принять куки"""
+        self.accept_cookies_button.click()
