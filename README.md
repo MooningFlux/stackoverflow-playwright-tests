@@ -15,7 +15,7 @@ Tests for Stackoverflow website using Playwright/Python
 
 ## Запуск тестов
 ### Клонирование, установка зависимостей
-1. git clone https://github.com/yourusername/stackoverflow-playwright-tests.git
+1. git clone https://github.com/MooningFlux/stackoverflow-playwright-tests.git
 2. cd stackoverflow-playwright-tests
 3. python -m venv .venv
 4. .venv/bin/activate
