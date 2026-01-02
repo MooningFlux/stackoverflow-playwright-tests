@@ -9,15 +9,6 @@ from pages.questions_page import QuestionsPage
 from playwright.sync_api import Page, APIResponse
 from _pytest.fixtures import FixtureRequest
 
-# @pytest.fixture(scope="module") #session
-# def credentials():
-#     creds={
-#     'EMAIL': config('EMAIL'),
-#     'PASSWORD': config('PASSWORD'),
-#     'EMAIL2': config('EMAIL2'),
-#     'PASSWORD2': config('PASSWORD2')
-#     }
-#     return creds
 
 EMAIL = config('EMAIL')
 PASSWORD = config('PASSWORD')
@@ -26,7 +17,6 @@ PASSWORD2 = config('PASSWORD2')
 
 KEY = "rl_bDjukFK2wQnvjqrqBVhCHDEWp"
 
-#consider storage
 PROBLEM_DESCRIPTION = """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -80,16 +70,14 @@ def questions_page(page):
 def authenticated_user(login_page: LoginPage) -> None:
     login_page.navigate_login()
     login_page.login(EMAIL2, PASSWORD2)
-    #accept cookies, to close the form
     expect(login_page.user_profile_button).to_be_visible()
 
-@pytest.fixture #with parameter in request obj
-def api_question_response(page: Page, request: FixtureRequest) -> APIResponse: #no need to explicitly annotate
-    #Запрашиваем response вопроса через API с указанным id
-    question_id = request.param  # Получаем ID из параметризации (test_questions.test_question_title_match())
+@pytest.fixture
+def api_question_response(page: Page, request: FixtureRequest) -> APIResponse:
+    question_id = request.param
     response = page.request.get(
         f"https://api.stackexchange.com/2.3/questions/{question_id}",
         params={"site": "stackoverflow"}
     )
-    assert response.status == 200 #.ok
+    assert response.status == 200
     return response

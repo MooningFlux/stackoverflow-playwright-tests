@@ -49,7 +49,7 @@ class TestTagsPagination:
         
         with allure.step('Проверить статус ответа'):
             assert response.status_code == 200
-            
+    
         with allure.step('Проверить количество полученных тегов'):
             assert len(response.json()['items']) == page_size
 
@@ -80,16 +80,8 @@ class TestTagsPagination:
             assert ui_tags_count == api_tags_count, \
                 "Количество тегов в UI и API должно совпадать"
     
-    #delete        
     @pytest.mark.api
-    def test_pagination_pagesize(self): #pagesize=36, requests used
-        r = requests.get("https://api.stackexchange.com/2.3/tags?page=1&pagesize=36&order=desc&sort=popular&site=stackoverflow")
-        data = r.json()
-        assert r.status_code == 200 #
-        assert len(data['items']) == 36
-
-    @pytest.mark.api
-    def test_pagination_empty_page(self, tags_page): #page.request used
+    def test_pagination_empty_page(self, tags_page):
         r = tags_page.page.request.get(
             base_url,
             params={
@@ -102,9 +94,8 @@ class TestTagsPagination:
             }
         )
         data = r.json()
-        print(data)
         assert r.status == 200
-        assert len(data["items"]) == 0  # Пустая страница
+        assert len(data["items"]) == 0
 
     @allure.story('UI тесты пагинации')
     @allure.title('Проверка отображения кнопки Prev на 1 странице')
@@ -123,12 +114,10 @@ class TestTagsPagination:
 def test_api_pagination_pagesize_mock(mocker):
     mock_response = mocker.Mock()
     mock_response.status_code = 200
-    mock_response.json.return_value = {'items': [1, 1, 1]}  #3 tags
+    mock_response.json.return_value = {'items': [1, 1, 1]}
 
-    # Мокаем requests.get, чтобы он возвращал наш мок-ответ
     mock_get = mocker.patch('requests.get', return_value=mock_response)
 
-    # Теперь вызов requests.get вернёт mock_response
     with allure.step(f'Отправить API запрос с pagesize = 3'):
         response = requests.get(
             base_url,

@@ -6,7 +6,6 @@ class QuestionsPage(BasePage):
     def __init__(self, page: Page) -> None:
         super().__init__(page)
         self.ask_question_button = page.get_by_role("link", name="Ask Question")
-        #ask page
         self.question_title_input = page.locator('#title')
         self.next_button = page.get_by_role("button", name="Next")
         self.problem_details_input = page.locator("#problem-details").get_by_role("textbox", name="Body")
@@ -18,7 +17,6 @@ class QuestionsPage(BasePage):
         self.discard_cancel_button = page.locator('#discard-cancel-btn') #page.get_by_role("button", name="Continue editing")
         self.discard_confirmation_button = page.locator('#discard-confirmation-btn') #page.get_by_role("button", name="Discard question")
         self.post_question_button = page.locator('#submit-button') #.or_ page.get_by_role("button", name="Post your question") 
-        #self.evaluate_question_button = page.get_by_role("button", name="Submit for evaluation")
         self.cookies_button = page.get_by_role("button", name="Accept all cookies")
         self.not_duplicate_checkbox = page.locator('#verify-not-duplicate')
         self.duplicate_message = page.locator('.question-hyperlink')
@@ -42,20 +40,18 @@ class QuestionsPage(BasePage):
     def fill_problem_details(self, details: str, results: str):
         """Заполнить детали вопроса и ожидаемый результат"""
         self.problem_details_input.fill(details)
-        #self.problem_details_input.fill("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
         self.problem_details_input.type(" ")
         self.problem_details_input.press("Backspace")
         self.next_button.click()
         self.problem_results_input.fill(results)
-        #self.problem_results_input.fill("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.")
-        self.problem_results_input.type(" ") #add date to differentiate texts
+        self.problem_results_input.type(" ")
         self.problem_results_input.press("Backspace")
         self.next_button.click()
     
     def fill_tags(self, tags: str):
         """Заполнить теги"""
         self.tags_input.fill("testing")
-        self.tags_editor.click() #position={ "x": 90, "y": 0}
+        self.tags_editor.click()
         self.next_button.click()
 
     def mark_as_not_duplicate(self):
@@ -70,39 +66,7 @@ class QuestionsPage(BasePage):
         """Опубликовать вопрос"""
         self.post_question_button.click()
 
-    def ask_correct_question(self): #decompose on smaller actions, include them in this action
-        """Создание вопроса"""
-        self.accept_cookies()
-        self.start_question_creation()
-        self.fill_question_title("Testing test test")
-        self.fill_problem_details("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                                  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.")
-        self.fill_tags("testing")
-        self.mark_as_not_duplicate()
-        self.review_question()
-        self.post_question()
-        # self.cookies_button.click()
-        # self.ask_question_button.click()
-        # self.question_title_input.fill("Testing test test")
-        # self.next_button.click()
-        # self.problem_details_input.fill("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
-        # self.problem_details_input.type(" ")
-        # self.problem_details_input.press("Backspace")
-        # self.next_button.click()
-        # self.problem_results_input.fill("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.")
-        # self.problem_results_input.type(" ") #add date to differentiate texts
-        # self.problem_results_input.press("Backspace")
-        # self.next_button.click()
-        # self.tags_input.fill("testing")
-        # self.tags_editor.click() #change on different locator| position={ "x": 90, "y": 0}
-        # #self.page.pause()
-        # self.next_button.click()
-        # self.not_duplicate_checkbox.check()
-        # self.review_button.click()
-        # self.post_question_button.click()
-        # captcha
-
-    def ask_correct_modified_question(self) -> None: #for TestAccount
+    def ask_correct_modified_question(self) -> None:
         """Создание вопроса (TestAccount)"""
         self.cookies_button.click()
         self.ask_question_button.click()
@@ -127,18 +91,5 @@ class QuestionsPage(BasePage):
     
     def get_question_title(self) -> str:
         """Возвращает title вопроса"""
-        return self.question_header.inner_text() #page.locator("#question-header .question-hyperlink").inner_text()
-    
-   
-class StackOverflowAPI: #relocate
-    
-    @staticmethod
-    def extract_title_from_response(response: APIResponse) -> str:
-        """Извлекает title из API respnse"""
-        return response.json()["items"][0]["title"]
-    
-    @staticmethod
-    def extract_id_from_response(response: APIResponse) -> str:
-        """Извлекает question_id из API response"""
-        return response.json()["items"][0]["question_id"]
+        return self.question_header.inner_text()
     

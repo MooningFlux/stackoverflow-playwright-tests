@@ -2,14 +2,14 @@ from playwright.sync_api import Page
 
 
 class BasePage:
-    def __init__(self, page: Page) -> None: #mb use locators file with all locators
+    def __init__(self, page: Page) -> None:
         self.page = page
         #self.home_button = page.locator('.-link--channel-name.pl6', has_text='Home') #li.ps-relative:nth-child(1)
-        self.home_button = page.get_by_role("link", name="Home", exact=True) #~for logged user
+        self.home_button = page.get_by_role("link", name="Home", exact=True) #for logged user
         self.questions_button = page.get_by_label("Primary").get_by_role("link", name="Questions", exact=True)
         self.tags_button = page.get_by_role("link", name="Tags", exact=True)
         self.saves_button = page.get_by_role("link", name="Saves", exact=True) #for logged user
-        self.users_button = page.get_by_role("link", name="Users", exact=True)
+        self.users_button = page.locator('#nav-users')
         self.companies_button = page.locator('#nav-companies') #page.get_by_role("link", name="Companies", exact=True)
         self.discussions_button = page.get_by_role("link", name="Discussions Labs", exact=True) #page.locator('#nav-labs-discussions')
         self.collectives_button = page.get_by_role("link", name="Explore all Collectives", exact=True)
@@ -70,12 +70,7 @@ class BasePage:
     def navigate(self, url: str) -> None:
         """Переход на указанный url"""
         self.page.goto(url, wait_until= 'domcontentloaded')
-    
-    #delete
-    def title(self) -> str:
-        """Возвращает заголовок страницы, same as page.title()"""
-        return self.page.title() #delegated .title() call
-    
+
     def logout(self) -> None:
         """Выполнить выход из профиля"""
         self.site_switcher.click()

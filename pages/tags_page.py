@@ -4,9 +4,9 @@ from pages.base_page import BasePage
 class TagsPage(BasePage):
     def __init__(self, page: Page) -> None:
         super().__init__(page)
-        self.pagination_buttons = page.locator('.s-pagination--item') #filter
+        self.pagination_buttons = page.locator('.s-pagination--item')
         self.current_page_button = page.locator('.s-pagination--item.is-selected')
-        self.tags_list = page.locator('#tags-browser .s-card') # tags containers
+        self.tags_list = page.locator('#tags-browser .s-card')
         self.next_page_button = page.get_by_role("link", name="Next", exact=True)
         self.prev_page_button = page.get_by_role("link", name="Prev", exact=True)
 
@@ -23,7 +23,6 @@ class TagsPage(BasePage):
     def get_current_page_number(self) -> int:
         """Возвращает номер текущей страницы"""
         return int(self.current_page_button.inner_text())
-                   #.filter(has=self.page.locator('.is-selected')).inner_text()))
 
     def is_prev_button_present(self) -> bool:
         """Возвращает признак отображения кнопки Prev"""
